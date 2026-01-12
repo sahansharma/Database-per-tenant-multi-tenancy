@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  coordinator:
+    image: docker.io/citusdata/citus:12.1
+    container_name: citus-coordinator
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: multitenant
+    depends_on:
+      - worker1
+      - worker2
+
+  worker1:
+    image: docker.io/citusdata/citus:12.1
+    container_name: citus-worker-1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: multitenant
+
+  worker2:
+    image: docker.io/citusdata/citus:12.1
+    container_name: citus-worker-2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: multitenant
